@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>Connect Wallet</title></head>
+<body>
+  <button onclick="connectWallet()">Connect Wallet</button>
+
+  <script type="module">
+    import WalletConnectProvider from "https://cdn.skypack.dev/@walletconnect/web3-provider";
+    import { ethers } from "https://cdn.skypack.dev/ethers";
+
+    async function connectWallet() {
+      const provider = new WalletConnectProvider({
+        rpc: { 1: "https://mainnet.infura.io/v3/YOUR_INFURA_ID" }
+      });
+
+      await provider.enable();
+
+      const web3Provider = new ethers.providers.Web3Provider(provider);
+      const signer = web3Provider.getSigner();
+
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      await contract.submitSignedPayload("yourPayload");
+    }
+  </script>
+</body>
+</html>
