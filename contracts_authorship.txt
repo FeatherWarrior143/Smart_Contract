@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract Authorship {
+    address public owner;
+    string public metadata;
+
+    constructor(string memory _metadata) {
+        owner = msg.sender;
+        metadata = _metadata;
+    }
+
+    function updateMetadata(string memory _newMetadata) public {
+        require(msg.sender == owner, "Not authorized");
+        metadata = _newMetadata;
+    }
+}
